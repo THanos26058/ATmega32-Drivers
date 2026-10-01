@@ -1,0 +1,25 @@
+# AVR Build Outputs
+*.elf
+*.hex
+*.o
+*.a
+*.map
+*.lss
+*.lst
+*.d
+
+# Release folder (keep .hex and .elf for flashing)
+release/*.o
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Compressed archives
+*.zip
+*.rar
+*.7z

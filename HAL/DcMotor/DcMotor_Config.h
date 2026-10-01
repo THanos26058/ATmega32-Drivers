@@ -1,0 +1,5 @@
+#ifndef DCMOTOTR_CONFIG
+#define DCMOTOTR_CONFIG
+
+
+#endif /* DCMOTOTR_CONFIG */

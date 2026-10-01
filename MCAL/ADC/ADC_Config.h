@@ -1,0 +1,59 @@
+/**
+ * @file ADC_Config.h
+ * @author Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2026-10-01
+ */
+#ifndef _MCAL_ADC_ADC_CONFIG_H_
+#define _MCAL_ADC_ADC_CONFIG_H_
+
+/*
+ * Voltage Reference:
+ * ADC_VREF_AREF
+ * ADC_VREF_AVCC
+ * ADC_VREF_INTERNAL_2_56
+ */
+#define ADC_VREF_SELECTION        ADC_VREF_AVCC
+
+/*
+ * Prescaler:
+ * ADC_PRESCALER_2
+ * ADC_PRESCALER_4
+ * ADC_PRESCALER_8
+ * ADC_PRESCALER_16
+ * ADC_PRESCALER_32
+ * ADC_PRESCALER_64
+ * ADC_PRESCALER_128
+ */
+#define ADC_PRESCALER_SELECTION   ADC_PRESCALER_128
+
+/*
+ * Result Adjust:
+ * ADC_RIGHT_ADJUST  -> 10-bit result in ADC_REG
+ * ADC_LEFT_ADJUST   ->  8-bit result in ADCH_REG
+ */
+#define ADC_ADJUST_SELECTION      ADC_RIGHT_ADJUST
+
+/* Auto Trigger: Enable or Disable */
+#define ADC_AUTO_TRIGGER_MODE     Disable
+
+#if ADC_AUTO_TRIGGER_MODE == Enable
+/*
+ * Trigger Source:
+ * ADC_TRIGGER_FREE_RUNNING
+ * ADC_TRIGGER_ANALOG_COMPARATOR
+ * ADC_TRIGGER_EXTI0
+ * ADC_TRIGGER_TIMER0_COMPARE_MATCH
+ * ADC_TRIGGER_TIMER0_OVERFLOW
+ * ADC_TRIGGER_TIMER1_COMPARE_MATCH
+ * ADC_TRIGGER_TIMER1_OVERFLOW
+ * ADC_TRIGGER_TIMER1_CAPTURE_EVENT
+ */
+#define ADC_TRIGGER_SOURCE        ADC_TRIGGER_FREE_RUNNING
+#endif
+
+/* Polling Timeout Count */
+#define ADC_TIMEOUT_COUNT         50000UL
+
+#endif // _MCAL_ADC_ADC_CONFIG_H_

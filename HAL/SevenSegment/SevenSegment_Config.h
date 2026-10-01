@@ -1,0 +1,7 @@
+
+#ifndef _SEVENSEGMENT_CONFIG_H_
+#define _SEVENSEGMENT_CONFIG_H_
+
+
+
+#endif // _SEVENSEGMENT_CONFIG_H_
