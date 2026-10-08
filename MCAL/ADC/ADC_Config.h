@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    ADC_Config.h
  * @brief   Compile-time configuration for the ATmega32 ADC driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -16,7 +16,7 @@
 
 #include "ADC_Private.h"
 
-/* ── Enable State ────────────────────────────────────────────────────────── */
+/*  Enable State  */
 
 /**
  * @def    Adc_InitState
@@ -25,7 +25,7 @@
  */
 #define Adc_InitState              Adc_Enable
 
-/* ── Voltage Reference ───────────────────────────────────────────────────── */
+/*  Voltage Reference  */
 
 /**
  * @def    Adc_VrefSelection
@@ -37,7 +37,7 @@
  */
 #define Adc_VrefSelection          Adc_Avcc
 
-/* ── Result Adjustment ───────────────────────────────────────────────────── */
+/*  Result Adjustment  */
 
 /**
  * @def    Adc_AdjustSelection
@@ -48,7 +48,7 @@
  */
 #define Adc_AdjustSelection        Adc_RightAdjust
 
-/* ── Clock Prescaler ─────────────────────────────────────────────────────── */
+/*  Clock Prescaler  */
 
 /**
  * @def    Adc_DivisionFactorSelection
@@ -58,7 +58,7 @@
  */
 #define Adc_DivisionFactorSelection Adc_DivisionFactor64
 
-/* ── Operating Mode ──────────────────────────────────────────────────────── */
+/*  Operating Mode  */
 
 /**
  * @def    Adc_ModeSelect
@@ -69,7 +69,7 @@
  */
 #define Adc_ModeSelect             Adc_SingleMode
 
-/* ── Auto-Trigger Source (only used when Adc_ModeSelect == Adc_AutoMode) ── */
+/*  Auto-Trigger Source (only used when Adc_ModeSelect == Adc_AutoMode)  */
 
 #if Adc_ModeSelect == Adc_AutoMode
 /**
@@ -82,7 +82,7 @@
 #define Adc_TriggerSource          Adc_FreeRunning
 #endif
 
-/* ── Interrupt Mode ──────────────────────────────────────────────────────── */
+/*  Interrupt Mode  */
 
 /**
  * @def    Adc_InterrupState

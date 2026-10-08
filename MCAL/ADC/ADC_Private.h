@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    ADC_Private.h
  * @brief   Private type definitions, enumerations, and masks for the ADC driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,12 +11,8 @@
 #ifndef _MCAL_ADC_ADC_PRIVATE_H_
 #define _MCAL_ADC_ADC_PRIVATE_H_
 
-/**
- * @defgroup ADC_Types ADC Driver Private Type Definitions
- * @{
- */
 
-/* ── Register Bit Positions ─────────────────────────────────────────────── */
+/*  Register Bit Positions  */
 
 /**
  * @enum  Adc_BitName_t
@@ -51,7 +47,7 @@ typedef enum
     ADTS2 = 7  /**< Auto Trigger Source bit 2.   */
 } Adc_BitName_t;
 
-/* ── Configuration Enumerations ─────────────────────────────────────────── */
+/*  Configuration Enumerations  */
 
 /**
  * @enum  Adc_ArefSelect_t
@@ -152,7 +148,7 @@ typedef enum
     Adc_SingleEndedChannel7 = 7  /**< ADC7 — PA7. */
 } Adc_Channel_t;
 
-/* ── Mask Values ─────────────────────────────────────────────────────────── */
+/*  Mask Values  */
 
 /**
  * @enum  Adc_MaskingValue_t
@@ -164,7 +160,7 @@ typedef enum
     Adc_ChannelMask       = 0x1F  /**< Mask for MUX[4:0] bits in ADMUX.     */
 } Adc_MaskingValue_t;
 
-/* ── Driver State Machine ────────────────────────────────────────────────── */
+/*  Driver State Machine  */
 
 /**
  * @enum  Adc_DriverState_t
@@ -177,7 +173,7 @@ typedef enum
     Adc_Busy               /**< A conversion is currently in progress.        */
 } Adc_DriverState_t;
 
-/* ── Error Codes ─────────────────────────────────────────────────────────── */
+/*  Error Codes  */
 
 /**
  * @enum  Adc_ErrorState_t
@@ -192,11 +188,10 @@ typedef enum
     Adc_TimerOutErr           /**< Polling loop exceeded @c MaxTimeOut cycles.*/
 } Adc_ErrorState_t;
 
-/* ── ISR Prototype ───────────────────────────────────────────────────────── */
+/*  ISR Prototype  */
 
 /** @brief ADC Conversion Complete ISR — vector 16. */
 void __vector_16(void) __attribute__((signal));
 
-/** @} */ /* end of ADC_Types */
 
 #endif /* _MCAL_ADC_ADC_PRIVATE_H_ */

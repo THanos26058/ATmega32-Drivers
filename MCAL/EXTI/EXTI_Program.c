@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    EXTI_Program.c
  * @brief   Implementation of the ATmega32 External Interrupt (EXTI) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -16,7 +16,7 @@
 
 #include "EXTI_Interface.h"
 
-/* ── Private Callback Pointers ───────────────────────────────────────────── */
+/*  Private Callback Pointers  */
 
 /** @brief Callback registered for INT0 (PD2). */
 static void (*GINT0)(void) = NULL;
@@ -27,7 +27,7 @@ static void (*GINT1)(void) = NULL;
 /** @brief Callback registered for INT2 (PB2). */
 static void (*GINT2)(void) = NULL;
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 /**
  * @brief See EXTI_Interface.h for full documentation.
@@ -81,7 +81,7 @@ void EXTI_CallBackFunction(uint8_t InterruptNumber, void (*PF)(void))
     else if (InterruptNumber == Exti2) { GINT2 = PF; }
 }
 
-/* ── ISR Vectors ─────────────────────────────────────────────────────────── */
+/*  ISR Vectors  */
 
 /** @brief INT0 ISR — vector 1. Calls GINT0 callback if registered. */
 void __vector_1(void) __attribute__((signal));

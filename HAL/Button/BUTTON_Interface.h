@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    BUTTON_Interface.h
  * @brief   Public API for the Push-Button HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -20,22 +20,18 @@
 
 #include "../../MCAL/DIO/DIO_Interface.h"
 
-/**
- * @defgroup BUTTON_API Button Driver Public API
- * @{
- */
 
-/* ── Connection Type Definitions ─────────────────────────────────────────── */
+/*  Connection Type Definitions  */
 
 #define BUTTON_PULL_UP      1  /**< Button to GND (Active Low).  */
 #define BUTTON_PULL_DOWN    2  /**< Button to VCC (Active High). */
 
-/* ── Button State Definitions ────────────────────────────────────────────── */
+/*  Button State Definitions  */
 
 #define BUTTON_RELEASED     0  /**< Button is not pressed. */
 #define BUTTON_PRESSED      1  /**< Button is pressed.     */
 
-/* ── Configuration Struct ────────────────────────────────────────────────── */
+/*  Configuration Struct  */
 
 /**
  * @struct Button_Config_t
@@ -48,7 +44,7 @@ typedef struct
     uint8_t ConnectionType; /**< @c BUTTON_PULL_UP or @c BUTTON_PULL_DOWN. */
 } Button_Config_t;
 
-/* ── Functions ───────────────────────────────────────────────────────────── */
+/*  Functions  */
 
 /**
  * @brief  Initialize the button's hardware pin as an input.
@@ -79,7 +75,6 @@ void BUTTON_ReadInputValue(const Button_Config_t *Config, uint8_t *InputValue);
  */
 void BUTTON_IsPhysacillyClicked(const Button_Config_t *Config, uint8_t *InputValue);
 
-/** @} */ /* end of BUTTON_API */
 
 #endif /* Button_Driver */
 #endif /* _HAL_BUTTON_BUTTON_INTERFACE_H_ */

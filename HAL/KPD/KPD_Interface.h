@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    KPD_Interface.h
  * @brief   Public API for the Matrix Keypad (KPD) HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -21,10 +21,6 @@
 #include "KPD_Private.h"
 #include "KPD_Config.h"
 
-/**
- * @defgroup KPD_API Keypad Driver Public API
- * @{
- */
 
 /**
  * @brief  Initialize the keypad GPIO pins.
@@ -42,7 +38,6 @@ void KPD_Init(void);
  */
 void KPD_GetKPDValue(uint8_t *KPD_Value);
 
-/** @} */ /* end of KPD_API */
 
 #endif /* Kpd_Driver */
 #endif /* _HAL_KPD_KPD_INTERFACE_H_ */

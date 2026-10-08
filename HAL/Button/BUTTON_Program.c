@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    BUTTON_Program.c
  * @brief   Implementation of the Push-Button HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,7 +11,7 @@
 
 #if Button_Driver
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 void BUTTON_Init(const Button_Config_t *Config)
 {

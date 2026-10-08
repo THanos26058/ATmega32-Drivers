@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    Atmega32Registers.h
  * @brief   Memory-mapped I/O register definitions for the ATmega32.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -20,7 +20,7 @@
 
 #include <stdint.h>
 
-/* ── Address Helpers ─────────────────────────────────────────────────────── */
+/*  Address Helpers  */
 
 /**
  * @brief Dereference @p Address as a volatile 8-bit register.
@@ -40,7 +40,7 @@
  */
 #define _SetAddress32bit(Address)  (*((volatile uint32_t *)(Address)))
 
-/* ── CPU / Status Registers ──────────────────────────────────────────────── */
+/*  CPU / Status Registers  */
 
 /** @brief Status Register (SREG) — I-flag is bit 7.            @addr 0x5F */
 #define SREG_REG         _SetAddress8bit(0x5F)
@@ -54,7 +54,7 @@
 /** @brief Stack Pointer (16-bit).                               @addr 0x5D */
 #define SP_REG           _SetAddress16bit(0x5D)
 
-/* ── MCU Control Registers ───────────────────────────────────────────────── */
+/*  MCU Control Registers  */
 
 /** @brief MCU Control Register (sleep, interrupt sense).        @addr 0x55 */
 #define MCUCR_REG        _SetAddress8bit(0x55)
@@ -65,7 +65,7 @@
 /** @brief Special Function I/O Register.                        @addr 0x50 */
 #define SFIOR_REG        _SetAddress8bit(0x50)
 
-/* ── Interrupt Control ───────────────────────────────────────────────────── */
+/*  Interrupt Control  */
 
 /** @brief General Interrupt Control Register (INT enable bits). @addr 0x5B */
 #define GICR_REG         _SetAddress8bit(0x5B)
@@ -79,7 +79,7 @@
 /** @brief Timer/Counter Interrupt Flag Register.                 @addr 0x58 */
 #define TIFR_REG         _SetAddress8bit(0x58)
 
-/* ── Port A ──────────────────────────────────────────────────────────────── */
+/*  Port A  */
 
 /** @brief Port A Data Register.                                  @addr 0x3B */
 #define PORTA_REG        _SetAddress8bit(0x3B)
@@ -90,7 +90,7 @@
 /** @brief Port A Input Pins Register.                            @addr 0x39 */
 #define PINA_REG         _SetAddress8bit(0x39)
 
-/* ── Port B ──────────────────────────────────────────────────────────────── */
+/*  Port B  */
 
 /** @brief Port B Data Register.                                  @addr 0x38 */
 #define PORTB_REG        _SetAddress8bit(0x38)
@@ -101,7 +101,7 @@
 /** @brief Port B Input Pins Register.                            @addr 0x36 */
 #define PINB_REG         _SetAddress8bit(0x36)
 
-/* ── Port C ──────────────────────────────────────────────────────────────── */
+/*  Port C  */
 
 /** @brief Port C Data Register.                                  @addr 0x35 */
 #define PORTC_REG        _SetAddress8bit(0x35)
@@ -112,7 +112,7 @@
 /** @brief Port C Input Pins Register.                            @addr 0x33 */
 #define PINC_REG         _SetAddress8bit(0x33)
 
-/* ── Port D ──────────────────────────────────────────────────────────────── */
+/*  Port D  */
 
 /** @brief Port D Data Register.                                  @addr 0x32 */
 #define PORTD_REG        _SetAddress8bit(0x32)
@@ -123,7 +123,7 @@
 /** @brief Port D Input Pins Register.                            @addr 0x30 */
 #define PIND_REG         _SetAddress8bit(0x30)
 
-/* ── Timer0 (8-bit) ──────────────────────────────────────────────────────── */
+/*  Timer0 (8-bit)  */
 
 /** @brief Timer/Counter0 Control Register.                       @addr 0x53 */
 #define TCCR0_REG        _SetAddress8bit(0x53)
@@ -134,7 +134,7 @@
 /** @brief Output Compare Register 0.                             @addr 0x5C */
 #define OCR0_REG         _SetAddress8bit(0x5C)
 
-/* ── Timer1 (16-bit) ─────────────────────────────────────────────────────── */
+/*  Timer1 (16-bit)  */
 
 /** @brief Timer/Counter1 Control Register A.                     @addr 0x4F */
 #define TCCR1A_REG       _SetAddress8bit(0x4F)
@@ -160,7 +160,7 @@
 /** @brief Input Capture Register 1 (16-bit).                     @addr 0x46 */
 #define ICR1_REG         _SetAddress16bit(0x46)
 
-/* ── Timer2 (8-bit, Async capable) ──────────────────────────────────────── */
+/*  Timer2 (8-bit, Async capable)  */
 
 /** @brief Timer/Counter2 Control Register.                       @addr 0x45 */
 #define TCCR2_REG        _SetAddress8bit(0x45)
@@ -174,7 +174,7 @@
 /** @brief Asynchronous Status Register (Timer2 async clock).     @addr 0x42 */
 #define ASSR_REG         _SetAddress8bit(0x42)
 
-/* ── ADC ─────────────────────────────────────────────────────────────────── */
+/*  ADC  */
 
 /** @brief ADC Multiplexer Selection Register.                    @addr 0x27 */
 #define ADMUX_REG        _SetAddress8bit(0x27)
@@ -191,7 +191,7 @@
 /** @brief ADC Data Register (16-bit, right-adjusted).            @addr 0x24 */
 #define ADC_REG          _SetAddress16bit(0x24)
 
-/* ── EEPROM ──────────────────────────────────────────────────────────────── */
+/*  EEPROM  */
 
 /** @brief EEPROM Address Register (16-bit).                      @addr 0x3E */
 #define EEAR_REG         _SetAddress16bit(0x3E)
@@ -202,7 +202,7 @@
 /** @brief EEPROM Control Register.                               @addr 0x3C */
 #define EECR_REG         _SetAddress8bit(0x3C)
 
-/* ── SPI ─────────────────────────────────────────────────────────────────── */
+/*  SPI  */
 
 /** @brief SPI Data Register.                                     @addr 0x2F */
 #define SPDR_REG         _SetAddress8bit(0x2F)
@@ -213,7 +213,7 @@
 /** @brief SPI Control Register.                                  @addr 0x2D */
 #define SPCR_REG         _SetAddress8bit(0x2D)
 
-/* ── USART ───────────────────────────────────────────────────────────────── */
+/*  USART  */
 
 /** @brief USART I/O Data Register.                               @addr 0x2C */
 #define UDR_REG          _SetAddress8bit(0x2C)
@@ -233,7 +233,7 @@
 /** @brief USART Control and Status Register C (shared w/ UBRRH). @addr 0x40 */
 #define UCSRC_REG        _SetAddress8bit(0x40)
 
-/* ── TWI / I²C ───────────────────────────────────────────────────────────── */
+/*  TWI / I²C  */
 
 /** @brief TWI Data Register.                                     @addr 0x23 */
 #define TWDR_REG         _SetAddress8bit(0x23)
@@ -244,7 +244,7 @@
 /** @brief TWI Control Register.                                  @addr 0x56 */
 #define TWCR_REG         _SetAddress8bit(0x56)
 
-/* ── Register Aliases (Ref-Repo naming — used by Timer & ADC drivers) ────── */
+/*  Register Aliases (Ref-Repo naming — used by Timer & ADC drivers)  */
 
 /** @brief Alias for PORTA_REG — used by reference-style drivers. */
 #define PORTA_Reg        PORTA_REG

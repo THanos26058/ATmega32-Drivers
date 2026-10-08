@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    SevenSegment_Interface.h
  * @brief   Public API for the Seven-Segment Display HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -20,17 +20,13 @@
 #include "../../MCAL/DIO/DIO_Interface.h"
 #include "SevenSegment_Config.h"
 
-/**
- * @defgroup SEVSEG_API Seven-Segment Driver Public API
- * @{
- */
 
-/* ── Hardware Configuration Definitions ──────────────────────────────────── */
+/*  Hardware Configuration Definitions  */
 
 #define SEVENSEGMENT_COMMON_CATHODE   1  /**< Display LEDs share a common GND. */
 #define SEVENSEGMENT_COMMON_ANODE     2  /**< Display LEDs share a common VCC. */
 
-/* ── Configuration Struct ────────────────────────────────────────────────── */
+/*  Configuration Struct  */
 
 /**
  * @struct SevenSegment_Config_t
@@ -42,7 +38,7 @@ typedef struct
     uint8_t Type;      /**< @c SEVENSEGMENT_COMMON_CATHODE or @c SEVENSEGMENT_COMMON_ANODE. */
 } SevenSegment_Config_t;
 
-/* ── Functions ───────────────────────────────────────────────────────────── */
+/*  Functions  */
 
 /**
  * @brief  Initialize the DIO port connected to the 7-segment display as output.
@@ -57,7 +53,6 @@ void SevenSegment_Init(const SevenSegment_Config_t *Config);
  */
 void SevenSegment_DisplayNumber(const SevenSegment_Config_t *Config, uint8_t Number);
 
-/** @} */ /* end of SEVSEG_API */
 
 #endif /* SevSeg_Driver */
 #endif /* _HAL_SEVENSEGMENT_SEVENSEGMENT_INTERFACE_H_ */

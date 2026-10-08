@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    DcMotor_Interface.h
  * @brief   Public API for the DC Motor HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -22,12 +22,8 @@
 #include "DcMotor_Private.h"
 #include "DcMotor_Config.h"
 
-/**
- * @defgroup DCMOTOR_API DC Motor Driver Public API
- * @{
- */
 
-/* ── Functions ───────────────────────────────────────────────────────────── */
+/*  Functions  */
 
 /**
  * @brief  Initialize the motor control pins as outputs.
@@ -65,7 +61,6 @@ void DC_OnCW(const Dc_Config_t *Config);
  */
 void DC_OnCCW(const Dc_Config_t *Config);
 
-/** @} */ /* end of DCMOTOR_API */
 
 #endif /* DcMotor_Driver */
 #endif /* _HAL_DCMOTOR_DCMOTOR_INTERFACE_H_ */

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    GIE_Interface.h
  * @brief   Public API for the Global Interrupt Enable (GIE) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -17,10 +17,6 @@
 
 #if GIE_Driver
 
-/**
- * @defgroup GIE_API GIE Driver Public API
- * @{
- */
 
 /**
  * @brief  Enable global interrupts.
@@ -36,7 +32,6 @@ void GIE_Enable(void);
  */
 void GIE_Disable(void);
 
-/** @} */ /* end of GIE_API */
 
 #endif /* GIE_Driver */
 #endif /* _MCAL_GIE_GIE_INTERFACE_H_ */

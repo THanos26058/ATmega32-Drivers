@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    ADC_Program.c
  * @brief   Implementation of the ATmega32 ADC driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -14,7 +14,7 @@
 
 #if ADC_Driver
 
-/* ── Private Variables ───────────────────────────────────────────────────── */
+/*  Private Variables  */
 
 /** @brief Internal driver state to prevent concurrent access conflicts. */
 static volatile uint8_t ADC_State = Adc_Uninitialized;
@@ -22,7 +22,7 @@ static volatile uint8_t ADC_State = Adc_Uninitialized;
 /** @brief Pointer to the user-supplied callback for asynchronous conversions. */
 static void (*ADC_Callback)(uint16_t Result) = NULL;
 
-/* ── Private Helper Functions ────────────────────────────────────────────── */
+/*  Private Helper Functions  */
 
 /**
  * @brief  Configure ADMUX register for a specific channel.
@@ -34,7 +34,7 @@ static void ADC_SelectChannel(uint8_t Channel)
     ADMUX_REG = (ADMUX_REG & ~Adc_ChannelMask) | (Channel & Adc_ChannelMask);
 }
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 void ADC_Init(void)
 {
@@ -156,7 +156,7 @@ uint8_t ADC_GetStatus(void)
     return ADC_State;
 }
 
-/* ── ISR Vector ──────────────────────────────────────────────────────────── */
+/*  ISR Vector  */
 
 /**
  * @brief  ADC Conversion Complete Interrupt Handler.

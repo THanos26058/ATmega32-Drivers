@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    T1_Interface.h
  * @brief   Public API for the Timer1 (16-bit) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -24,12 +24,8 @@
 
 #if Timer1_Driver
 
-/**
- * @defgroup Timer1_API Timer1 Driver Public API
- * @{
- */
 
-/* ── Normal Mode (Overflow) ──────────────────────────────────────────────── */
+/*  Normal Mode (Overflow)  */
 #if T1_Normal 
 /**
  * @brief  Initialize Timer1 in Normal (Overflow) Mode.
@@ -51,7 +47,7 @@ void T1_SetPreLoad(uint16_t PreloadValue);
 void T1_NormalCallBack(void (*PF)(void));
 #endif // T1_Normal
 
-/* ── CTC Mode ────────────────────────────────────────────────────────────── */
+/*  CTC Mode  */
 #if T1_CTC
 /**
  * @brief  Initialize Timer1 in CTC Mode with OCR1A as the Top value.
@@ -85,7 +81,7 @@ void T1_CTCCallBackChannelA(void (*PF)(void));
 void T1_CTCCallBackChannelB(void (*PF)(void));
 #endif // T1_CTC
 
-/* ── PWM Mode ────────────────────────────────────────────────────────────── */
+/*  PWM Mode  */
 #if T1_PWM
 /**
  * @brief  Initialize Timer1 in PWM Mode (Fast PWM or Phase Correct).
@@ -113,7 +109,7 @@ void T1_SetCompareValueChannelA(uint16_t CompareValue);
 void T1_SetCompareValueChannelB(uint16_t CompareValue);
 #endif // T1_PWM
 
-/* ── Input Capture Unit (ICU) Mode ───────────────────────────────────────── */
+/*  Input Capture Unit (ICU) Mode  */
 #if T1_ICU
 /**
  * @brief  Initialize the Input Capture Unit (ICU) on pin ICP1 (PD6).
@@ -151,7 +147,7 @@ void T1_ICU_InterruptDisable(void);
 void T1_ICU_SetCallBack(void (*PF)(void));
 #endif // T1_ICU
 
-/* ── Common Control ──────────────────────────────────────────────────────── */
+/*  Common Control  */
 
 /**
  * @brief  Set or change the Timer1 clock prescaler dynamically.
@@ -165,7 +161,6 @@ void T1_SetClock(uint8_t ClockSelect);
  */
 void T1_Stop(void);
 
-/** @} */ /* end of Timer1_API */
 
 #endif /* Timer1_Driver */
 #endif /* _MCAL_TIMER1_T1_INTERFACE_H_ */

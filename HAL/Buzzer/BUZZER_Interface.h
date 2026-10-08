@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    BUZZER_Interface.h
  * @brief   Public API for the Buzzer HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -20,17 +20,13 @@
 
 #include "../../MCAL/DIO/DIO_Interface.h"
 
-/**
- * @defgroup BUZZER_API Buzzer Driver Public API
- * @{
- */
 
-/* ── Connection Type Definitions ─────────────────────────────────────────── */
+/*  Connection Type Definitions  */
 
 #define BUZZER_ACTIVE_HIGH    1  /**< MCU sources current to buzzer. */
 #define BUZZER_ACTIVE_LOW     2  /**< MCU sinks current from buzzer. */
 
-/* ── Configuration Struct ────────────────────────────────────────────────── */
+/*  Configuration Struct  */
 
 /**
  * @struct Buzzer_Config_t
@@ -43,7 +39,7 @@ typedef struct
     uint8_t ConnectionType; /**< @c BUZZER_ACTIVE_HIGH or @c BUZZER_ACTIVE_LOW. */
 } Buzzer_Config_t;
 
-/* ── Functions ───────────────────────────────────────────────────────────── */
+/*  Functions  */
 
 /**
  * @brief  Initialize the buzzer's hardware pin as an output.
@@ -71,7 +67,6 @@ void BUZZER_TurnOff(const Buzzer_Config_t *Config);
  */
 void BUZZER_Toggle(const Buzzer_Config_t *Config);
 
-/** @} */ /* end of BUZZER_API */
 
 #endif /* Buzzer_Driver */
 #endif /* _HAL_BUZZER_BUZZER_INTERFACE_H_ */

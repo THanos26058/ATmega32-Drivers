@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    DIO_Interface.h
  * @brief   Public API for the ATmega32 Digital I/O (DIO) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -27,12 +27,8 @@
 #include "DIO_Private.h"
 #include "DIO_Config.h"
 
-/**
- * @defgroup DIO_API DIO Driver Public API
- * @{
- */
 
-/* ── Direction ───────────────────────────────────────────────────────────── */
+/*  Direction  */
 
 /**
  * @brief  Configure the direction (input / output) of a single I/O pin.
@@ -61,7 +57,7 @@ void DIO_DirectionSelectForPin(uint8_t GroupName, uint8_t PinNo,
  */
 void DIO_DirectionSelectForGroup(uint8_t GroupName, uint8_t DirectionState);
 
-/* ── Output ──────────────────────────────────────────────────────────────── */
+/*  Output  */
 
 /**
  * @brief  Write a logic level (HIGH or LOW) to a single output pin.
@@ -81,7 +77,7 @@ void DIO_WriteForPin(uint8_t GroupName, uint8_t PinNo, uint8_t OutputValue);
  */
 void DIO_WriteForGroup(uint8_t GroupName, uint8_t OutputValue);
 
-/* ── Input ───────────────────────────────────────────────────────────────── */
+/*  Input  */
 
 /**
  * @brief  Read the logic level of a single input pin.
@@ -103,7 +99,7 @@ void DIO_ReadInputForPin(uint8_t GroupName, uint8_t PinNo,
  */
 void DIO_ReadInputForGroup(uint8_t GroupName, uint8_t *InputState);
 
-/* ── Toggle ──────────────────────────────────────────────────────────────── */
+/*  Toggle  */
 
 /**
  * @brief  Toggle the output level of a single pin (HIGH→LOW or LOW→HIGH).
@@ -120,7 +116,7 @@ void DIO_ToggleForPin(uint8_t GroupName, uint8_t PinNo);
  */
 void DIO_ToggleForGroup(uint8_t GroupName);
 
-/* ── Internal Pull-Up ────────────────────────────────────────────────────── */
+/*  Internal Pull-Up  */
 
 /**
  * @brief  Enable or disable the internal pull-up resistor on an input pin.
@@ -137,6 +133,5 @@ void DIO_ToggleForGroup(uint8_t GroupName);
 void DIO_InternalPullUpControl(uint8_t GroupName, uint8_t PinNo,
                                uint8_t PullUpState);
 
-/** @} */ /* end of DIO_API */
 
 #endif /* _MCAL_DIO_DIO_INTERFACE_H_ */

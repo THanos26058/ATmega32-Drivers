@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    Config.h
  * @brief   Project-wide configuration switches for the ATmega32 driver library.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -21,7 +21,7 @@
 
 #include "Definition.h"
 
-/* ── CPU Frequency ───────────────────────────────────────────────────────── */
+/*  CPU Frequency  */
 
 /**
  * @def    F_CPU
@@ -32,7 +32,7 @@
 #define F_CPU 8000000UL
 #endif
 
-/* ── MCAL Driver Switches ────────────────────────────────────────────────── */
+/*  MCAL Driver Switches  */
 
 /**
  * @defgroup McalSwitches MCAL Driver Enable/Disable Switches
@@ -51,14 +51,9 @@
 #define Timer2_Driver       Enable  /**< 8-bit Timer2 driver                  */
 #define TWI_Driver          Enable  /**< TWI / I²C driver (stub)              */
 #define Usart_Driver        Enable  /**< USART driver (stub)                  */
-/** @} */
 
-/* ── HAL Driver Switches ─────────────────────────────────────────────────── */
+/*  HAL Driver Switches  */
 
-/**
- * @defgroup HalSwitches HAL Driver Enable/Disable Switches
- * @{
- */
 #define Button_Driver       Enable  /**< Push-button driver                   */
 #define Buzzer_Driver       Enable  /**< Buzzer driver                        */
 #define DcMotor_Driver      Enable  /**< DC motor driver                      */
@@ -68,9 +63,8 @@
 #define SevSeg_Driver       Enable  /**< Seven-segment display driver         */
 #define Ldr_Driver          Enable  /**< LDR light-sensor driver              */
 #define Lm35_Driver         Enable  /**< LM35 temperature-sensor driver       */
-/** @} */
 
-/* ── Timer0 Mode Switches ────────────────────────────────────────────────── */
+/*  Timer0 Mode Switches  */
 
 #if Timer0_Driver
 /**
@@ -82,34 +76,23 @@
 #define T0_Normal           Enable  /**< Overflow  (Normal) mode              */
 #define T0_CTC              Enable  /**< Clear Timer on Compare Match mode    */
 #define T0_PWM              Enable  /**< Fast PWM / Phase-Correct PWM mode    */
-/** @} */
 #endif /* Timer0_Driver */
 
-/* ── Timer1 Mode Switches ────────────────────────────────────────────────── */
+/*  Timer1 Mode Switches  */
 
 #if Timer1_Driver
-/**
- * @defgroup Timer1Modes Timer1 Operating Mode Switches
- * @{
- */
 #define T1_Normal           Enable  /**< Overflow  (Normal) mode              */
 #define T1_CTC              Enable  /**< CTC mode (TOP = OCR1A)               */
 #define T1_PWM              Enable  /**< Fast PWM / Phase-Correct PWM mode    */
 #define T1_ICU              Enable  /**< Input Capture Unit mode              */
-/** @} */
 #endif /* Timer1_Driver */
 
-/* ── Timer2 Mode Switches ────────────────────────────────────────────────── */
+/*  Timer2 Mode Switches  */
 
 #if Timer2_Driver
-/**
- * @defgroup Timer2Modes Timer2 Operating Mode Switches
- * @{
- */
 #define T2_Normal           Enable  /**< Overflow  (Normal) mode              */
 #define T2_CTC              Enable  /**< Clear Timer on Compare Match mode    */
 #define T2_PWM              Enable  /**< Fast PWM / Phase-Correct PWM mode    */
-/** @} */
 #endif /* Timer2_Driver */
 
 #endif /* _COMMON_CONFIG_H */

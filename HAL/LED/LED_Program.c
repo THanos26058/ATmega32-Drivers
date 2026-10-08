@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LED_Program.c
  * @brief   Implementation of the LED HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,7 +11,7 @@
 
 #if Led_Driver
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 void LED_Init(const LED_Config_t *Config)
 {

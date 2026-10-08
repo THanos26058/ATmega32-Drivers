@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LM35_Program.c
  * @brief   Implementation of the LM35 Temperature Sensor HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,7 +11,7 @@
 
 #if Lm35_Driver
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 void LM35_Init(uint8_t Channel)
 {

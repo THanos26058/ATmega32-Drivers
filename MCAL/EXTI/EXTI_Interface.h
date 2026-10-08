@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    EXTI_Interface.h
  * @brief   Public API for the ATmega32 External Interrupt (EXTI) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -37,10 +37,6 @@
 
 #if EXTI_Driver
 
-/**
- * @defgroup EXTI_API EXTI Driver Public API
- * @{
- */
 
 /**
  * @brief  Configure the sense (trigger) condition for an external interrupt.
@@ -83,7 +79,6 @@ void EXTI_Disable(uint8_t InterruptNumber);
  */
 void EXTI_CallBackFunction(uint8_t InterruptNumber, void (*PF)(void));
 
-/** @} */ /* end of EXTI_API */
 
 #endif /* EXTI_Driver */
 

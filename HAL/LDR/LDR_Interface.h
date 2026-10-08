@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LDR_Interface.h
  * @brief   Public API for the Light Dependent Resistor (LDR) sensor HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -24,17 +24,13 @@
 #include "LDR_Config.h"
 #include "LDR_Private.h"
 
-/**
- * @defgroup LDR_API LDR Sensor Driver Public API
- * @{
- */
 
-/* ── Connection Type Definitions ─────────────────────────────────────────── */
+/*  Connection Type Definitions  */
 
 #define LDR_PULL_DOWN 1 /**< LDR connected to VCC, fixed resistor to GND. */
 #define LDR_PULL_UP   2 /**< LDR connected to GND, fixed resistor to VCC. */
 
-/* ── Enums & Structs ─────────────────────────────────────────────────────── */
+/*  Enums & Structs  */
 
 /**
  * @enum  LDR_LightLevel_t
@@ -58,7 +54,7 @@ typedef struct
     uint8_t ConnectionType; /**< @c LDR_PULL_DOWN or @c LDR_PULL_UP.                   */
 } LDR_Config_t;
 
-/* ── Functions ───────────────────────────────────────────────────────────── */
+/*  Functions  */
 
 /**
  * @brief  Initialize the LDR sensor hardware pin.
@@ -97,7 +93,6 @@ void LDR_GetLightIntensity(const LDR_Config_t *Config, uint8_t *Intensity);
  */
 void LDR_GetLightLevel(const LDR_Config_t *Config, LDR_LightLevel_t *LightLevel);
 
-/** @} */ /* end of LDR_API */
 
 #endif /* Ldr_Driver */
 #endif /* _HAL_LDR_LDR_INTERFACE_H_ */

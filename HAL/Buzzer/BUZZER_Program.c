@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    BUZZER_Program.c
  * @brief   Implementation of the Buzzer HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,7 +11,7 @@
 
 #if Buzzer_Driver
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 void BUZZER_Init(const Buzzer_Config_t *Config)
 {

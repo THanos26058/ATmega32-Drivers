@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    DIO_Program.c
  * @brief   Implementation of the ATmega32 Digital I/O (DIO) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -12,7 +12,7 @@
 
 #include "DIO_Interface.h"
 
-/* ── Direction ───────────────────────────────────────────────────────────── */
+/*  Direction  */
 
 /**
  * @brief See DIO_Interface.h for full documentation.
@@ -62,7 +62,7 @@ void DIO_DirectionSelectForGroup(uint8_t GroupName, uint8_t DirectionState)
     }
 }
 
-/* ── Output ──────────────────────────────────────────────────────────────── */
+/*  Output  */
 
 /**
  * @brief See DIO_Interface.h for full documentation.
@@ -110,7 +110,7 @@ void DIO_WriteForGroup(uint8_t GroupName, uint8_t OutputValue)
     }
 }
 
-/* ── Input ───────────────────────────────────────────────────────────────── */
+/*  Input  */
 
 /**
  * @brief See DIO_Interface.h for full documentation.
@@ -148,7 +148,7 @@ void DIO_ReadInputForGroup(uint8_t GroupName, uint8_t *InputState)
     }
 }
 
-/* ── Toggle ──────────────────────────────────────────────────────────────── */
+/*  Toggle  */
 
 /**
  * @brief See DIO_Interface.h for full documentation.
@@ -182,7 +182,7 @@ void DIO_ToggleForGroup(uint8_t GroupName)
     }
 }
 
-/* ── Internal Pull-Up ────────────────────────────────────────────────────── */
+/*  Internal Pull-Up  */
 
 /**
  * @brief See DIO_Interface.h for full documentation.

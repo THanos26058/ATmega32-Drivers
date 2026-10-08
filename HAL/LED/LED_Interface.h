@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LED_Interface.h
  * @brief   Public API for the LED HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -19,17 +19,13 @@
 
 #include "../../MCAL/DIO/DIO_Interface.h"
 
-/**
- * @defgroup LED_API LED Driver Public API
- * @{
- */
 
-/* ── Connection Type Definitions ─────────────────────────────────────────── */
+/*  Connection Type Definitions  */
 
 #define LED_ACTIVE_HIGH    1  /**< MCU sources current (LED anode to MCU pin). */
 #define LED_ACTIVE_LOW     2  /**< MCU sinks current (LED cathode to MCU pin). */
 
-/* ── Configuration Struct ────────────────────────────────────────────────── */
+/*  Configuration Struct  */
 
 /**
  * @struct LED_Config_t
@@ -42,7 +38,7 @@ typedef struct
     uint8_t ConnectionType; /**< @c LED_ACTIVE_HIGH or @c LED_ACTIVE_LOW. */
 } LED_Config_t;
 
-/* ── Functions ───────────────────────────────────────────────────────────── */
+/*  Functions  */
 
 /**
  * @brief  Initialize the LED hardware pin as an output.
@@ -70,7 +66,6 @@ void LED_TurnOff(const LED_Config_t *Config);
  */
 void LED_Toggle(const LED_Config_t *Config);
 
-/** @} */ /* end of LED_API */
 
 #endif /* Led_Driver */
 #endif /* _HAL_LED_LED_INTERFACE_H_ */

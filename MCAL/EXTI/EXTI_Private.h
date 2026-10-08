@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    EXTI_Private.h
  * @brief   Private bit-name enumerations and type definitions for the EXTI driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,10 +11,6 @@
 #ifndef _MCAL_EXTI_EXTI_PRIVATE_H_
 #define _MCAL_EXTI_EXTI_PRIVATE_H_
 
-/**
- * @defgroup EXTI_Types EXTI Driver Private Type Definitions
- * @{
- */
 
 /**
  * @enum  Exti_BitName_t
@@ -68,6 +64,5 @@ typedef enum
     Exti2 = 2  /**< External Interrupt 2 (PB2 / INT2, edge-triggered only).*/
 } Exti_Numbers_t;
 
-/** @} */ /* end of EXTI_Types */
 
 #endif /* _MCAL_EXTI_EXTI_PRIVATE_H_ */

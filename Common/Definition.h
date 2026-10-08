@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    Definition.h
  * @brief   Common type aliases, boolean values, and logic-level definitions.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -29,7 +29,7 @@
 /** @brief Null character terminator for C strings. */
 #define NullChar        '\0'
 
-/* ── Boolean ─────────────────────────────────────────────────────────────── */
+/*  Boolean  */
 
 /** @brief Boolean true  (1). */
 #define true            1
@@ -37,7 +37,7 @@
 /** @brief Boolean false (0). */
 #define false           0
 
-/* ── Enable / Disable ────────────────────────────────────────────────────── */
+/*  Enable / Disable  */
 
 /** @brief Peripheral or feature enabled. Equals @c true. */
 #define Enable          true
@@ -45,7 +45,7 @@
 /** @brief Peripheral or feature disabled. Equals @c false. */
 #define Disable         false
 
-/* ── On / Off ────────────────────────────────────────────────────────────── */
+/*  On / Off  */
 
 /** @brief Output or switch is on.  Equals @c true. */
 #define On              true
@@ -53,7 +53,7 @@
 /** @brief Output or switch is off. Equals @c false. */
 #define Off             false
 
-/* ── Set / Reset ─────────────────────────────────────────────────────────── */
+/*  Set / Reset  */
 
 /** @brief Bit or flag is set.   Equals @c true. */
 #define Set             true
@@ -61,7 +61,7 @@
 /** @brief Bit or flag is reset. Equals @c false. */
 #define Reset           false
 
-/* ── Active / Inactive ───────────────────────────────────────────────────── */
+/*  Active / Inactive  */
 
 /** @brief Signal or peripheral is active.   Equals @c true. */
 #define Active          true
@@ -69,7 +69,7 @@
 /** @brief Signal or peripheral is inactive. Equals @c false. */
 #define Inactive        false
 
-/* ── Logic Level ─────────────────────────────────────────────────────────── */
+/*  Logic Level  */
 
 /** @brief Active-High logic: a HIGH voltage activates the peripheral. */
 #define ActiveHigh      true
@@ -77,6 +77,5 @@
 /** @brief Active-Low  logic: a LOW  voltage activates the peripheral. */
 #define ActiveLow       false
 
-/** @} */ /* end of CommonDefs group */
 
 #endif /* DEFINITION_H */

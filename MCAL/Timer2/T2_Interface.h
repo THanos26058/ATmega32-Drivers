@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    T2_Interface.h
  * @brief   Public API for the Timer2 (8-bit) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -25,12 +25,8 @@
 
 #if Timer2_Driver
 
-/**
- * @defgroup Timer2_API Timer2 Driver Public API
- * @{
- */
 
-/* ── Normal Mode (Overflow) ──────────────────────────────────────────────── */
+/*  Normal Mode (Overflow)  */
 #if T2_Normal 
 /**
  * @brief  Initialize Timer2 in Normal (Overflow) Mode.
@@ -52,7 +48,7 @@ void T2_SetPreLoad(uint8_t PreloadValue);
 void T2_NormalCallBack(void (*PF)(void));
 #endif // T2_Normal
 
-/* ── CTC Mode ────────────────────────────────────────────────────────────── */
+/*  CTC Mode  */
 #if T2_CTC
 /**
  * @brief  Initialize Timer2 in CTC (Clear Timer on Compare Match) Mode.
@@ -74,7 +70,7 @@ void T2_SetCompareValue(uint8_t CompareValue);
 void T2_CTCCallBack(void (*PF)(void));
 #endif // T2_CTC
 
-/* ── PWM Mode ────────────────────────────────────────────────────────────── */
+/*  PWM Mode  */
 #if T2_PWM
 /**
  * @brief  Initialize Timer2 in PWM Mode (Fast PWM or Phase Correct).
@@ -89,7 +85,7 @@ void T2_PwmInit(void);
 void T2_SetDutyCycle(uint8_t DutyCyclePre);
 #endif // T2_PWM
 
-/* ── Common Control ──────────────────────────────────────────────────────── */
+/*  Common Control  */
 
 /**
  * @brief  Set or change the Timer2 clock prescaler dynamically.
@@ -103,7 +99,6 @@ void T2_SetClock(uint8_t ClockSelect);
  */
 void T2_Stop(void);
 
-/** @} */ /* end of Timer2_API */
 
 #endif /* Timer2_Driver */
 #endif /* _MCAL_TIMER2_T2_INTERFACE_H_ */

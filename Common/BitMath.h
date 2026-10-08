@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    BitMath.h
  * @brief   Bitwise manipulation macros for ATmega32 register access.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -49,6 +49,5 @@
  */
 #define ReadBit(REG, BIT)   (((REG) >> (BIT)) & 1)
 
-/** @} */ /* end of BitMath group */
 
 #endif /* BITMATH_H */

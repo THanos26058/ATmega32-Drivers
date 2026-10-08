@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    T0_Interface.h
  * @brief   Public API for the Timer0 (8-bit) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -25,12 +25,8 @@
 
 #if Timer0_Driver
 
-/**
- * @defgroup Timer0_API Timer0 Driver Public API
- * @{
- */
 
-/* ── Normal Mode (Overflow) ──────────────────────────────────────────────── */
+/*  Normal Mode (Overflow)  */
 #if T0_Normal 
 /**
  * @brief  Initialize Timer0 in Normal (Overflow) Mode.
@@ -52,7 +48,7 @@ void T0_SetPreLoad(uint8_t PreloadValue);
 void T0_NormalCallBack(void (*PF)(void));
 #endif // T0_Normal
 
-/* ── CTC Mode ────────────────────────────────────────────────────────────── */
+/*  CTC Mode  */
 #if T0_CTC
 /**
  * @brief  Initialize Timer0 in CTC Mode.
@@ -74,7 +70,7 @@ void T0_SetCompareValue(uint8_t CompareValue);
 void T0_CTCCallBack(void (*PF)(void));
 #endif // T0_CTC
 
-/* ── PWM Mode ────────────────────────────────────────────────────────────── */
+/*  PWM Mode  */
 #if T0_PWM
 /**
  * @brief  Initialize Timer0 in PWM Mode.
@@ -90,7 +86,7 @@ void T0_PwmInit(void);
 void T0_SetDutyCycle(uint8_t DutyCyclePre);
 #endif // T0_PWM
 
-/* ── Common Control ──────────────────────────────────────────────────────── */
+/*  Common Control  */
 
 /**
  * @brief  Set or change the Timer0 clock prescaler dynamically.
@@ -105,7 +101,6 @@ void T0_SetClock(uint8_t ClockSelect);
  */
 void T0_Stop(void);
 
-/** @} */ /* end of Timer0_API */
 
 #endif /* Timer0_Driver */
 #endif /* _MCAL_TIMER0_T0_INTERFACE_H_ */

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LCD_Interface.h
  * @brief   Public API for the alphanumeric LCD (16x2 / 20x4) HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -22,10 +22,6 @@
 #include "LCD_Private.h"
 #include "LCD_Config.h"
 
-/**
- * @defgroup LCD_API LCD Driver Public API
- * @{
- */
 
 /**
  * @brief  Initialize the LCD module based on the compile-time configuration.
@@ -71,7 +67,6 @@ void LCD_MoveTo(uint8_t Line, uint8_t Digit);
  */
 void LCD_StoreSpecialCharacter(uint8_t *SpecialCharacter, uint8_t Location);
 
-/** @} */ /* end of LCD_API */
 
 #endif /* Lcd_Driver */
 #endif /* _HAL_LCD_LCD_INTERFACE_H_ */

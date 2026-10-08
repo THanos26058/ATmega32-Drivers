@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LDR_Program.c
  * @brief   Implementation of the LDR (Light Dependent Resistor) HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -11,7 +11,7 @@
 
 #if Ldr_Driver
 
-/* ── Internal Helper ─────────────────────────────────────────────────────── */
+/*  Internal Helper  */
 
 /**
  * @brief Calculates light intensity percentage from raw ADC value.
@@ -35,7 +35,7 @@ static inline uint8_t LDR_CalcIntensity(uint16_t RawValue, uint8_t ConnectionTyp
     }
 }
 
-/* ── Public API ──────────────────────────────────────────────────────────── */
+/*  Public API  */
 
 void LDR_Init(const LDR_Config_t *Config)
 {

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    ADC_Interface.h
  * @brief   Public API for the ATmega32 Analog-to-Digital Converter (ADC) driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -29,12 +29,8 @@
 #include "ADC_Private.h"
 #include "ADC_Config.h"
 
-/**
- * @defgroup ADC_API ADC Driver Public API
- * @{
- */
 
-/* ── Initialization ──────────────────────────────────────────────────────── */
+/*  Initialization  */
 
 /**
  * @brief  Initialize the ADC peripheral based on build-time configuration.
@@ -53,7 +49,7 @@ void ADC_Init(void);
  */
 void ADC_DeInit(void);
 
-/* ── Control ─────────────────────────────────────────────────────────────── */
+/*  Control  */
 
 /**
  * @brief  Enable the ADC peripheral (sets ADEN in ADCSRA).
@@ -75,7 +71,7 @@ void ADC_EnableInterrupt(void);
  */
 void ADC_DisableInterrupt(void);
 
-/* ── Synchronous (Polling) ───────────────────────────────────────────────── */
+/*  Synchronous (Polling)  */
 
 /**
  * @brief  Perform a blocking (synchronous) ADC conversion.
@@ -92,7 +88,7 @@ void ADC_DisableInterrupt(void);
  */
 uint8_t ADC_Read(uint8_t Channel, uint16_t *DigitalValue, uint32_t MaxTimeOut);
 
-/* ── Asynchronous (Interrupt) ────────────────────────────────────────────── */
+/*  Asynchronous (Interrupt)  */
 
 /**
  * @brief  Start a non-blocking ADC conversion.
@@ -116,7 +112,7 @@ uint8_t ADC_StartConversion(uint8_t Channel);
  */
 uint8_t ADC_SetCallBack(void (*ADC_PF)(uint16_t Result));
 
-/* ── Status ──────────────────────────────────────────────────────────────── */
+/*  Status  */
 
 /**
  * @brief  Get the current state of the ADC driver.
@@ -125,7 +121,6 @@ uint8_t ADC_SetCallBack(void (*ADC_PF)(uint16_t Result));
  */
 uint8_t ADC_GetStatus(void);
 
-/** @} */ /* end of ADC_API */
 
 #endif /* ADC_Driver */
 #endif /* _MCAL_ADC_ADC_INTERFACE_H_ */

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    LM35_Interface.h
  * @brief   Public API for the LM35 Temperature Sensor HAL driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -23,10 +23,6 @@
 #include "LM35_Config.h"
 #include "LM35_Private.h"
 
-/**
- * @defgroup LM35_API LM35 Sensor Driver Public API
- * @{
- */
 
 /**
  * @brief  Initialize the LM35 sensor pin as an ADC input.
@@ -49,7 +45,6 @@ void LM35_Init(uint8_t Channel);
  */
 void LM35_GetTemperature(uint8_t Channel, uint8_t *Temperature);
 
-/** @} */ /* end of LM35_API */
 
 #endif /* Lm35_Driver */
 #endif /* _HAL_LM35_LM35_INTERFACE_H_ */

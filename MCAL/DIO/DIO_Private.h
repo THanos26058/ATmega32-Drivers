@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @file    DIO_Private.h
  * @brief   Private type definitions and enumerations for the DIO driver.
  * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
@@ -16,10 +16,6 @@
 #ifndef _MCAL_DIO_DIO_PRIVATE_H_
 #define _MCAL_DIO_DIO_PRIVATE_H_
 
-/**
- * @defgroup DIO_Types DIO Driver Type Definitions
- * @{
- */
 
 /**
  * @enum  DIO_Direction_t
@@ -75,6 +71,5 @@ typedef enum
     DIO_Pin7      /**< Bit 7 — most significant pin in the port byte.  */
 } DIO_PinNo_t;
 
-/** @} */ /* end of DIO_Types */
 
 #endif /* _MCAL_DIO_DIO_PRIVATE_H_ */
