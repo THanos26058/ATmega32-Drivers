@@ -1,13 +1,21 @@
 /**
- * @file LDR_Program.c
- * @author Mahmoud Abdallah (nt123456789123456789@gmail.com)
- * @brief 
+ * @file    LDR_Program.c
+ * @brief   Implementation of the LDR (Light Dependent Resistor) HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
  * @version 0.1
- * @date 2026-10-01
  */
-#include "LDR_Interface.h"
 
-/* Internal helper - calculates intensity % from raw ADC value */
+#include "LDR_Interface.h"
+#include "../../Common/Definition.h"
+
+#if Ldr_Driver
+
+/* ── Internal Helper ─────────────────────────────────────────────────────── */
+
+/**
+ * @brief Calculates light intensity percentage from raw ADC value.
+ */
 static inline uint8_t LDR_CalcIntensity(uint16_t RawValue, uint8_t ConnectionType)
 {
     if (RawValue > LDR_MAX_ADC_VALUE)
@@ -27,132 +35,70 @@ static inline uint8_t LDR_CalcIntensity(uint16_t RawValue, uint8_t ConnectionTyp
     }
 }
 
-/* Initialize */
+/* ── Public API ──────────────────────────────────────────────────────────── */
 
 void LDR_Init(const LDR_Config_t *Config)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Config == NULL) { return; }
+    if (Config->Channel > Adc_SingleEndedChannel7) { return; }
 
-    if (Config->Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
+    /* ADC channels map to Port A */
     DIO_DirectionSelectForPin(DIO_GroupA, Config->Channel, DIO_Input);
 }
 
-/* Get Raw ADC Value */
-
 void LDR_GetAnalogValue(const LDR_Config_t *Config, uint16_t *AnalogValue)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Config == NULL || AnalogValue == NULL) { return; }
+    if (Config->Channel > Adc_SingleEndedChannel7) { return; }
 
-    if (AnalogValue == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Config->Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    ADC_ReadChannelSync(Config->Channel, AnalogValue);
+    /* Use 50,000 loop timeout for blocking ADC read */
+    ADC_Read(Config->Channel, AnalogValue, 50000);
 }
-
-/* Get Light Intensity */
 
 void LDR_GetLightIntensity(const LDR_Config_t *Config, uint8_t *Intensity)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Intensity == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Config->Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Config->ConnectionType != LDR_PULL_DOWN && Config->ConnectionType != LDR_PULL_UP)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
     uint16_t RawValue = 0;
-    ADC_ReadChannelSync(Config->Channel, &RawValue);
 
-    *Intensity = LDR_CalcIntensity(RawValue, Config->ConnectionType);
+    if (Config == NULL || Intensity == NULL) { return; }
+    if (Config->Channel > Adc_SingleEndedChannel7) { return; }
+    if (Config->ConnectionType != LDR_PULL_DOWN && Config->ConnectionType != LDR_PULL_UP) { return; }
+
+    if (ADC_Read(Config->Channel, &RawValue, 50000) == Adc_Ok)
+    {
+        *Intensity = LDR_CalcIntensity(RawValue, Config->ConnectionType);
+    }
 }
-
-/* Get Light Level */
 
 void LDR_GetLightLevel(const LDR_Config_t *Config, LDR_LightLevel_t *LightLevel)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (LightLevel == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Config->Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Config->ConnectionType != LDR_PULL_DOWN && Config->ConnectionType != LDR_PULL_UP)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    /* Single ADC read - shared with intensity calculation via helper */
     uint16_t RawValue = 0;
-    ADC_ReadChannelSync(Config->Channel, &RawValue);
+    uint8_t Intensity = 0;
 
-    uint8_t Intensity = LDR_CalcIntensity(RawValue, Config->ConnectionType);
+    if (Config == NULL || LightLevel == NULL) { return; }
+    if (Config->Channel > Adc_SingleEndedChannel7) { return; }
+    if (Config->ConnectionType != LDR_PULL_DOWN && Config->ConnectionType != LDR_PULL_UP) { return; }
 
-    if (Intensity < LDR_DARK_THRESHOLD)
+    if (ADC_Read(Config->Channel, &RawValue, 50000) == Adc_Ok)
     {
-        *LightLevel = LDR_Dark;
-    }
-    else if (Intensity < LDR_DIM_THRESHOLD)
-    {
-        *LightLevel = LDR_Dim;
-    }
-    else if (Intensity < LDR_NORMAL_THRESHOLD)
-    {
-        *LightLevel = LDR_Normal;
-    }
-    else
-    {
-        *LightLevel = LDR_Bright;
+        Intensity = LDR_CalcIntensity(RawValue, Config->ConnectionType);
+
+        if (Intensity < LDR_DARK_THRESHOLD)
+        {
+            *LightLevel = LDR_Dark;
+        }
+        else if (Intensity < LDR_DIM_THRESHOLD)
+        {
+            *LightLevel = LDR_Dim;
+        }
+        else if (Intensity < LDR_NORMAL_THRESHOLD)
+        {
+            *LightLevel = LDR_Normal;
+        }
+        else
+        {
+            *LightLevel = LDR_Bright;
+        }
     }
 }
+
+#endif /* Ldr_Driver */

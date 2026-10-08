@@ -1,45 +1,69 @@
 /**
- * @file ADC_Program.c
- * @author Mahmoud Abdallah (nt123456789123456789@gmail.com)
- * @brief 
+ * @file    ADC_Program.c
+ * @brief   Implementation of the ATmega32 ADC driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
  * @version 0.1
- * @date 2026-10-01
+ *
+ * @details Implements synchronous and asynchronous analog-to-digital conversions.
+ *          Features a state machine (Uninitialized -> Idle <-> Busy) to protect
+ *          against concurrent access to the ADC hardware.
  */
+
 #include "ADC_Interface.h"
 
-static uint16_t *ADC_AsyncResult          = NULL;
-static void    (*ADC_NotificationCallback)(void) = NULL;
+#if ADC_Driver
 
-/* Initialization */
+/* ── Private Variables ───────────────────────────────────────────────────── */
+
+/** @brief Internal driver state to prevent concurrent access conflicts. */
+static volatile uint8_t ADC_State = Adc_Uninitialized;
+
+/** @brief Pointer to the user-supplied callback for asynchronous conversions. */
+static void (*ADC_Callback)(uint16_t Result) = NULL;
+
+/* ── Private Helper Functions ────────────────────────────────────────────── */
+
+/**
+ * @brief  Configure ADMUX register for a specific channel.
+ * @param[in] Channel ADC channel (0-7).
+ */
+static void ADC_SelectChannel(uint8_t Channel)
+{
+    /* Clear Channel Bits in ADMUX (4:0), apply new channel with mask */
+    ADMUX_REG = (ADMUX_REG & ~Adc_ChannelMask) | (Channel & Adc_ChannelMask);
+}
+
+/* ── Public API ──────────────────────────────────────────────────────────── */
 
 void ADC_Init(void)
 {
-    /* Select Voltage Reference */
-    ADMUX_REG = (ADMUX_REG & ADC_VREF_MASK) | (ADC_VREF_SELECTION << REFS0);
+    if (ADC_State != Adc_Uninitialized)
+    {
+        return; /* Already initialized */
+    }
 
-    /* Select Result Adjust */
-#if ADC_ADJUST_SELECTION == ADC_RIGHT_ADJUST
-    ClearBit(ADMUX_REG, ADLAR);
-#elif ADC_ADJUST_SELECTION == ADC_LEFT_ADJUST
-    SetBit(ADMUX_REG, ADLAR);
+    /* Configure ADMUX: Voltage Reference & Result Adjust */
+    ADMUX_REG = Adc_VrefSelection | Adc_AdjustSelection;
+
+    /* Configure ADCSRA: Enable, Mode, Interrupts, Prescaler */
+    ADCSRA_REG = Adc_InitState | Adc_ModeSelect | Adc_InterrupState | Adc_DivisionFactorSelection;
+
+    /* Configure SFIOR: Auto-trigger source (if Auto Mode is selected) */
+#if Adc_ModeSelect == Adc_AutoMode
+    SFIOR_REG = (SFIOR_REG & ~Adc_TriggerSourceMask) | Adc_TriggerSource;
 #endif
 
-    /* Select Prescaler */
-    ADCSRA_REG = (ADCSRA_REG & ADC_PRESCALER_MASK) | (ADC_PRESCALER_SELECTION);
-
-    /* Configure Auto Trigger */
-#if ADC_AUTO_TRIGGER_MODE == Enable
-    SetBit(ADCSRA_REG, ADATE);
-    SFIOR_REG = (SFIOR_REG & ADC_AUTO_TRIGGER_MASK) | (ADC_TRIGGER_SOURCE << ADTS0);
-#else
-    ClearBit(ADCSRA_REG, ADATE);
-#endif
-
-    /* Enable ADC */
-    SetBit(ADCSRA_REG, ADEN);
+    ADC_State = Adc_Idle;
 }
 
-/* Enable / Disable */
+void ADC_DeInit(void)
+{
+    ClearBit(ADCSRA_REG, ADIF); /* Clear flag */
+    ClearBit(ADCSRA_REG, ADIE); /* Disable Interrupt */
+    ClearBit(ADCSRA_REG, ADEN); /* Disable ADC */
+    ADC_State = Adc_Uninitialized;
+}
 
 void ADC_Enable(void)
 {
@@ -51,130 +75,110 @@ void ADC_Disable(void)
     ClearBit(ADCSRA_REG, ADEN);
 }
 
-/* Interrupt Control */
-
-void ADC_InterruptEnable(void)
+void ADC_EnableInterrupt(void)
 {
     SetBit(ADCSRA_REG, ADIE);
-    SetBit(SREG_REG, ADC_GIE);
 }
 
-void ADC_InterruptDisable(void)
+void ADC_DisableInterrupt(void)
 {
     ClearBit(ADCSRA_REG, ADIE);
 }
 
-/* Synchronous Read */
-
-void ADC_ReadChannelSync(ADC_Channel_t Channel, uint16_t *ADC_Value)
+uint8_t ADC_Read(uint8_t Channel, uint16_t *DigitalValue, uint32_t MaxTimeOut)
 {
-    if (ADC_Value == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    uint32_t LocalTimeOut = 0;
 
-    if (Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (DigitalValue == NULL)          { return Adc_NullPointerErr; }
+    if (Channel > Adc_SingleEndedChannel7) { return Adc_InvalidChannelErr; }
+    if (ADC_State == Adc_Uninitialized) { return Adc_NotInitializedErr; }
+    if (ADC_State == Adc_Busy)         { return Adc_Busy; } /* Re-entrancy protection */
 
-    /* Select Channel - keep REFS and ADLAR bits */
-    ADMUX_REG = (ADMUX_REG & ADC_CHANNEL_MASK) | (Channel & 0x1F);
+    ADC_State = Adc_Busy;
+    ADC_SelectChannel(Channel);
 
     /* Start Conversion */
     SetBit(ADCSRA_REG, ADSC);
 
-    /* Wait for ADIF flag with timeout guard */
-    uint32_t Timeout = 0;
-    while ((ReadBit(ADCSRA_REG, ADIF) == 0) && (Timeout < ADC_TIMEOUT_COUNT))
+    /* Wait for conversion to finish (ADIF flag goes high) or timeout */
+    while (ReadBit(ADCSRA_REG, ADIF) == 0)
     {
-        Timeout++;
+        if (LocalTimeOut >= MaxTimeOut)
+        {
+            ADC_State = Adc_Idle;
+            return Adc_TimerOutErr;
+        }
+        LocalTimeOut++;
     }
 
-    if (Timeout >= ADC_TIMEOUT_COUNT)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    /* Clear ADIF by writing 1 */
+    /* Clear ADIF manually by writing logical 1 to it */
     SetBit(ADCSRA_REG, ADIF);
 
-    /* Read Result */
-#if ADC_ADJUST_SELECTION == ADC_RIGHT_ADJUST
-    *ADC_Value = ADC_REG;
-#elif ADC_ADJUST_SELECTION == ADC_LEFT_ADJUST
-    *ADC_Value = ADCH_REG;
+    /* Read result based on adjustment selection */
+#if Adc_AdjustSelection == Adc_LeftAdjust
+    *DigitalValue = ADCH_REG;       /* 8-bit resolution */
+#else
+    *DigitalValue = ADC_REG;        /* 10-bit resolution */
 #endif
+
+    ADC_State = Adc_Idle;
+    return Adc_Ok;
 }
 
-/* Asynchronous Read */
-
-void ADC_StartConversionAsync(ADC_Channel_t Channel, uint16_t *ADC_Value, void (*NotificationFunction)(void))
+uint8_t ADC_StartConversion(uint8_t Channel)
 {
-    if (ADC_Value == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Channel > Adc_SingleEndedChannel7) { return Adc_InvalidChannelErr; }
+    if (ADC_State == Adc_Uninitialized) { return Adc_NotInitializedErr; }
+    if (ADC_State == Adc_Busy)         { return Adc_Busy; }
 
-    if (Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    ADC_State = Adc_Busy;
+    ADC_SelectChannel(Channel);
 
-    ADC_AsyncResult          = ADC_Value;
-    ADC_NotificationCallback = NotificationFunction;
-
-    /* Select Channel */
-    ADMUX_REG = (ADMUX_REG & ADC_CHANNEL_MASK) | (Channel & 0x1F);
-
-    /* Clear any pending flag */
-    SetBit(ADCSRA_REG, ADIF);
-
-    /* Enable ADC Interrupt and Global Interrupt */
+    /* Enable ADC interrupt so ISR fires when done */
     SetBit(ADCSRA_REG, ADIE);
-    SetBit(SREG_REG, ADC_GIE);
 
     /* Start Conversion */
     SetBit(ADCSRA_REG, ADSC);
+
+    return Adc_Ok;
 }
 
-/* Set Callback */
-
-void ADC_SetCallback(void (*NotificationFunction)(void))
+uint8_t ADC_SetCallBack(void (*ADC_PF)(uint16_t Result))
 {
-    if (NotificationFunction == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    ADC_NotificationCallback = NotificationFunction;
+    if (ADC_PF == NULL) { return Adc_NullPointerErr; }
+    
+    ADC_Callback = ADC_PF;
+    return Adc_Ok;
 }
 
-/* ADC Conversion Complete ISR */
+uint8_t ADC_GetStatus(void)
+{
+    return ADC_State;
+}
 
+/* ── ISR Vector ──────────────────────────────────────────────────────────── */
+
+/**
+ * @brief  ADC Conversion Complete Interrupt Handler.
+ * @details Reads the ADC data register and passes it to the user callback,
+ *          then returns the driver state to Adc_Idle.
+ */
 void __vector_16(void)
 {
-    if (ADC_AsyncResult != NULL)
-    {
-#if ADC_ADJUST_SELECTION == ADC_RIGHT_ADJUST
-        *ADC_AsyncResult = ADC_REG;
-#elif ADC_ADJUST_SELECTION == ADC_LEFT_ADJUST
-        *ADC_AsyncResult = ADCH_REG;
+    uint16_t result = 0;
+
+#if Adc_AdjustSelection == Adc_LeftAdjust
+    result = ADCH_REG;
+#else
+    result = ADC_REG;
 #endif
-        ADC_AsyncResult = NULL;
-    }
 
-    /* Disable ADC Interrupt after single-shot conversion */
-    ClearBit(ADCSRA_REG, ADIE);
+    ADC_State = Adc_Idle;
 
-    if (ADC_NotificationCallback != NULL)
+    if (ADC_Callback != NULL)
     {
-        ADC_NotificationCallback();
+        ADC_Callback(result);
     }
 }
+
+#endif /* ADC_Driver */

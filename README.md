@@ -8,13 +8,18 @@ A layered embedded driver library for ATmega32 microcontroller, written in C.
 WorkSpace/
 ├── Common/                  # Shared macros and definitions
 │   ├── BitMath.h            # SetBit, ClearBit, ToggleBit, ReadBit
-│   └── Definition.h         # NULL, true/false, Enable/Disable, etc.
+│   ├── Definition.h         # NULL, true/false, Enable/Disable, etc.
+│   └── Config.h             # Shared driver configuration and switches
 │
 ├── MCAL/                    # Microcontroller Abstraction Layer
 │   ├── Atmega32Registers.h  # All ATmega32 register definitions
 │   ├── DIO/                 # Digital I/O driver
 │   ├── EXTI/                # External Interrupt driver
-│   └── ADC/                 # Analog-to-Digital Converter driver
+│   ├── GIE/                 # Global Interrupt Enable driver
+│   ├── ADC/                 # Analog-to-Digital Converter driver
+│   ├── Timer0/              # 8-bit Timer0 (Normal, CTC, Fast/Phase PWM)
+│   ├── Timer1/              # 16-bit Timer1 (Normal, CTC, PWM, ICU)
+│   └── Timer2/              # 8-bit Timer2 (Normal, CTC, Fast/Phase PWM, Async RTC)
 │
 ├── HAL/                     # Hardware Abstraction Layer
 │   ├── LED/                 # LED driver
@@ -36,7 +41,11 @@ WorkSpace/
 |--------|-------|-------------|
 | DIO | MCAL | Digital Input/Output (pin & group) |
 | EXTI | MCAL | External Interrupts (INT0, INT1, INT2) |
+| GIE | MCAL | Global Interrupt Enable (SREG I-bit) |
 | ADC | MCAL | 10-bit ADC with sync/async modes |
+| Timer0 | MCAL | 8-bit Timer0 (Normal OVF, CTC, Fast PWM, Phase Correct PWM) |
+| Timer1 | MCAL | 16-bit Timer1 (Normal, CTC, Fast/Phase PWM, Input Capture Unit) |
+| Timer2 | MCAL | 8-bit Timer2 (Normal, CTC, Fast/Phase PWM, Asynchronous RTC) |
 | LED | HAL | Active-High / Active-Low LED |
 | Button | HAL | Pull-Up / Pull-Down button with debounce |
 | Buzzer | HAL | Active-High / Active-Low buzzer |

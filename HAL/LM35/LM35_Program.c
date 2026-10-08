@@ -1,44 +1,43 @@
 /**
- * @file LM35_Program.c
- * @author Mahmoud Abdallah (nt123456789123456789@gmail.com)
- * @brief 
+ * @file    LM35_Program.c
+ * @brief   Implementation of the LM35 Temperature Sensor HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
  * @version 0.1
- * @date 2026-10-01
  */
+
 #include "LM35_Interface.h"
+#include "../../Common/Definition.h"
 
-/* Initialize */
+#if Lm35_Driver
 
-void LM35_Init(ADC_Channel_t Channel)
+/* ── Public API ──────────────────────────────────────────────────────────── */
+
+void LM35_Init(uint8_t Channel)
 {
-    if (Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Channel > Adc_SingleEndedChannel7) { return; }
 
+    /* LM35 output is connected to one of the ADC pins on Port A */
     DIO_DirectionSelectForPin(DIO_GroupA, Channel, DIO_Input);
 }
 
-/* Get Temperature */
-
-void LM35_GetTemperature(ADC_Channel_t Channel, uint8_t *Temperature)
+void LM35_GetTemperature(uint8_t Channel, uint8_t *Temperature)
 {
-    if (Temperature == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (Channel > ADC_Channel7)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
     uint16_t ADC_Value = 0;
-    ADC_ReadChannelSync(Channel, &ADC_Value);
 
-    /* Temperature (C) = (ADC_Value * Vref_mV) / (ADC_Resolution * Sensitivity_mV) */
-    *Temperature = (uint8_t)(((uint32_t)ADC_Value * LM35_VREF_MV) / (LM35_ADC_RESOLUTION * LM35_SENSITIVITY_MV));
+    if (Temperature == NULL) { return; }
+    if (Channel > Adc_SingleEndedChannel7) { return; }
+
+    /* Perform a blocking read with a timeout of 50,000 loops */
+    if (ADC_Read(Channel, &ADC_Value, 50000) == Adc_Ok)
+    {
+        /* 
+         * Temperature (C) = (ADC_Value * Vref_mV) / (ADC_Resolution * Sensitivity_mV)
+         * e.g., (ADC_Value * 5000) / (1024 * 10)
+         */
+        *Temperature = (uint8_t)(((uint32_t)ADC_Value * LM35_VREF_MV) / 
+                                 (LM35_ADC_RESOLUTION * LM35_SENSITIVITY_MV));
+    }
 }
+
+#endif /* Lm35_Driver */

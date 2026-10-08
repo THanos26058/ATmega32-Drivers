@@ -30,7 +30,7 @@
 
 /* LDR Configuration */
 const LDR_Config_t LightSensor = {
-    .Channel        = ADC_Channel0,   /* PA0 */
+    .Channel        = Adc_SingleEndedChannel0,   /* PA0 */
     .ConnectionType = LDR_PULL_DOWN   /* LDR to VCC, Resistor to GND */
 };
 

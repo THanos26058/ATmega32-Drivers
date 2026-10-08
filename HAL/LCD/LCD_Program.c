@@ -1,4 +1,14 @@
+/**
+ * @file    LCD_Program.c
+ * @brief   Implementation of the alphanumeric LCD HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
+ * @version 0.1
+ */
+
 #include "LCD_Interface.h"
+#if Lcd_Driver
+
 #include <util/delay.h>
 
 void LCD_Init()
@@ -241,3 +251,5 @@ void LCD_StoreSpecialCharacter(uint8_t * SpecialCharacter , uint8_t Location)
         }
         LCD_MoveTo(Lcd_Line1,0);
 }
+#endif /* Lcd_Driver */
+

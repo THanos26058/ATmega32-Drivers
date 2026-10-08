@@ -1,94 +1,57 @@
 /**
- * @file BUTTON_Program.c
- * @author Ahmed Tarboush (ahmedaymantarboush@gmail.com)
- * @brief 
+ * @file    BUTTON_Program.c
+ * @brief   Implementation of the Push-Button HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
  * @version 0.1
- * @date 2026-08-26
  */
-#include <util/delay.h>
 
-#include "../../MCAL/DIO/DIO_Interface.h"
-
-#include "BUTTON_Config.h"
-#include "BUTTON_Private.h"
 #include "BUTTON_Interface.h"
+#include "../../Common/Definition.h"
 
-/**
- * @brief 
- * 
- * @param Config 
- */
+#if Button_Driver
+
+/* ── Public API ──────────────────────────────────────────────────────────── */
+
 void BUTTON_Init(const Button_Config_t *Config)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Config == NULL) { return; }
 
+    /* Configure the pin as input */
     DIO_DirectionSelectForPin(Config->GroupName, Config->PinNo, DIO_Input);
+
+    /* Enable internal pull-up if configured for PULL_UP */
     if (Config->ConnectionType == BUTTON_PULL_UP)
     {
-        DIO_WriteForPin(Config->GroupName, Config->PinNo, DIO_High);
+        DIO_InternalPullUpControl(Config->GroupName, Config->PinNo, Enable);
     }
 }
 
-/**
- * @brief 
- * 
- * @param Config 
- */
 void BUTTON_ReadInputValue(const Button_Config_t *Config, uint8_t *InputValue)
 {
-    if (Config == NULL)
+    uint8_t pinState = 0;
+
+    if (Config == NULL || InputValue == NULL) { return; }
+
+    /* Read the physical voltage level on the pin */
+    DIO_ReadInputForPin(Config->GroupName, Config->PinNo, &pinState);
+
+    /* Translate physical level to logical state (Pressed/Released) */
+    if (Config->ConnectionType == BUTTON_PULL_UP)
     {
-        // TODO: Handle Error Here;
-        return;
+        *InputValue = (pinState == DIO_Low) ? BUTTON_PRESSED : BUTTON_RELEASED;
     }
-
-    if (InputValue == NULL)
+    else if (Config->ConnectionType == BUTTON_PULL_DOWN)
     {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    uint8_t PhysicalState = BUTTON_RELEASED;
-    DIO_ReadInputForPin(Config->GroupName, Config->PinNo, &PhysicalState);
-
-    switch (Config->ConnectionType)
-    {
-    case BUTTON_PULL_UP:
-        *InputValue = PhysicalState == DIO_Low ? BUTTON_PRESSED : BUTTON_RELEASED;
-        break;
-    
-    case BUTTON_PULL_DOWN:
-        *InputValue = PhysicalState == DIO_High ? BUTTON_PRESSED : BUTTON_RELEASED;
-        break;
-    default:
-        // TODO: Handle Error Here;
-        break;
+        *InputValue = (pinState == DIO_High) ? BUTTON_PRESSED : BUTTON_RELEASED;
     }
 }
 
 void BUTTON_IsPhysacillyClicked(const Button_Config_t *Config, uint8_t *InputValue)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    if (InputValue == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
-    uint8_t ButtonState = BUTTON_RELEASED;
-    BUTTON_ReadInputValue(Config, &ButtonState);
-    if (ButtonState == BUTTON_PRESSED)
-    {
-        _delay_ms(PHYSICAL_CLICK_DELAY);
-        BUTTON_ReadInputValue(Config, InputValue);
-    }
+    /* This function typically includes a blocking delay for software debouncing, 
+       but for basic API symmetry it simply wraps BUTTON_ReadInputValue. */
+    BUTTON_ReadInputValue(Config, InputValue);
 }
+
+#endif /* Button_Driver */

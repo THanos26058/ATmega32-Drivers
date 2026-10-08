@@ -1,45 +1,32 @@
 /**
- * @file LED_Program.c
- * @brief
+ * @file    LED_Program.c
+ * @brief   Implementation of the LED HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
  * @version 0.1
- * @date 2026-08-26
  */
-#include "../../MCAL/DIO/DIO_Interface.h"
 
-#include "LED_Config.h"
-#include "LED_Private.h"
 #include "LED_Interface.h"
+#include "../../Common/Definition.h"
 
-/**
- * @brief 
- * 
- * 
- * @param Config 
- */
+#if Led_Driver
+
+/* ── Public API ──────────────────────────────────────────────────────────── */
+
 void LED_Init(const LED_Config_t *Config)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Config == NULL) { return; }
 
+    /* Set pin direction as Output */
     DIO_DirectionSelectForPin(Config->GroupName, Config->PinNo, DIO_Output);
+
+    /* Start in the OFF state */
     LED_TurnOff(Config);
 }
 
-/**
- * @brief
- *
- * @param Config
- */
 void LED_TurnOn(const LED_Config_t *Config)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Config == NULL) { return; }
 
     if (Config->ConnectionType == LED_ACTIVE_HIGH)
     {
@@ -49,26 +36,11 @@ void LED_TurnOn(const LED_Config_t *Config)
     {
         DIO_WriteForPin(Config->GroupName, Config->PinNo, DIO_Low);
     }
-    else
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
 }
 
-/**
- * @brief
- *
- * @param Config
- */
 void LED_TurnOff(const LED_Config_t *Config)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
-
+    if (Config == NULL) { return; }
 
     if (Config->ConnectionType == LED_ACTIVE_HIGH)
     {
@@ -78,25 +50,13 @@ void LED_TurnOff(const LED_Config_t *Config)
     {
         DIO_WriteForPin(Config->GroupName, Config->PinNo, DIO_High);
     }
-    else
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
 }
 
-/**
- * @brief
- *
- * @param Config
- */
 void LED_Toggle(const LED_Config_t *Config)
 {
-    if (Config == NULL)
-    {
-        // TODO: Handle Error Here;
-        return;
-    }
+    if (Config == NULL) { return; }
 
     DIO_ToggleForPin(Config->GroupName, Config->PinNo);
 }
+
+#endif /* Led_Driver */

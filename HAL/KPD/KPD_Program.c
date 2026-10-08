@@ -1,4 +1,14 @@
+/**
+ * @file    KPD_Program.c
+ * @brief   Implementation of the Matrix Keypad (KPD) HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
+ * @version 0.1
+ */
+
 #include "KPD_Interface.h"
+#if Kpd_Driver
+
 #include <util/delay.h>
 void KPD_Init()
 {
@@ -58,3 +68,6 @@ void KPD_GetKPDValue(uint8_t *KPD_Value)
         DIO_WriteForPin(KPD_ColGroups[C],KPD_ColPins[C],DIO_High);
     }
 }
+
+#endif /* Kpd_Driver */
+

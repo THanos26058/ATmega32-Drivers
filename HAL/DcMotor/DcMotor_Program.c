@@ -1,4 +1,13 @@
+/**
+ * @file    DcMotor_Program.c
+ * @brief   Implementation of the DC Motor HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
+ * @version 0.1
+ */
+
 #include "DcMotor_Interface.h"
+#if DcMotor_Driver
 
 void DC_Init(const Dc_Config_t *Config)
 {
@@ -72,3 +81,5 @@ void DC_OnCCW(const Dc_Config_t *Config)
     DIO_WriteForPin(Config->DC_M1Group, Config->DC_M1Pin, DIO_Low);
     DIO_WriteForPin(Config->DC_M2Group, Config->DC_M2Pin, DIO_High);
 }
+#endif /* DcMotor_Driver */
+

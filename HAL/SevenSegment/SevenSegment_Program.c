@@ -1,5 +1,13 @@
+/**
+ * @file    SevenSegment_Program.c
+ * @brief   Implementation of the Seven-Segment Display HAL driver.
+ * @author  Mahmoud Abdallah (nt123456789123456789@gmail.com)
+ * @date    2026-10-08
+ * @version 0.1
+ */
 
 #include "../../MCAL/DIO/DIO_Interface.h"
+#if SevSeg_Driver
 
 #include "SevenSegment_Config.h"
 #include "SevenSegment_Private.h"
@@ -63,3 +71,5 @@ void SevenSegment_DisplayNumber(const SevenSegment_Config_t *Config, uint8_t Num
         break;
     }
 }
+#endif /* SevSeg_Driver */
+
