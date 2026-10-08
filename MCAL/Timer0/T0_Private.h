@@ -12,25 +12,7 @@
 #include "../../Common/Config.h"
 #include "../Atmega32Registers.h"
 
-/* Register Aliases for compatibility */
-#ifndef TCCR0_Reg
-#define TCCR0_Reg    TCCR0_REG
-#endif
-#ifndef TCNT0_Reg
-#define TCNT0_Reg    TCNT0_REG
-#endif
-#ifndef OCR0_Reg
-#define OCR0_Reg     OCR0_REG
-#endif
-#ifndef TIMSk_Reg
-#define TIMSk_Reg    TIMSK_REG
-#endif
-#ifndef TIFR_Reg
-#define TIFR_Reg     TIFR_REG
-#endif
-#ifndef SREG_Reg
-#define SREG_Reg     SREG_REG
-#endif
+
 
 #if Timer0_Driver
 
